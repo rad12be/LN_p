@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nail Service Selector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .app {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .service {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .service:hover {
+      background: #f9fafb;
+    }
+
+    .service.selected {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+
+    .total {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <h1>Nail Services</h1>
+
+    <div id="services"></div>
+
+    <div class="total">
+      <span>Total</span>
+      <span id="total">$0</span>
+    </div>
+  </div>
+
+  <script>
+    const services = [
+      { name: "Basic Manicure", price: 20 },
+      { name: "Gel Manicure", price: 35 },
+      { name: "Basic Pedicure", price: 35 },
+      { name: "Gel Pedicure", price: 50 },
+      { name: "Pedi & Mani Combo", price: 50 },
+      { name: "Gel Polish", price: 15 },
+      { name: "Acrylic Full Set", price: 35 },
+      { name: "Acrylic Full Set + gel", price: 50 },
+      { name: "Acrylic Fill", price: 25 },
+      { name: "Acrylic Fill + gel", price: 40 },
+      { name: "Dip Powder", price: 45 },
+      { name: "Dip Powder + french", price: 50 },
+      
+    ];
+
+    const servicesContainer = document.getElementById("services");
+    const totalEl = document.getElementById("total");
+
+    let selectedTotal = 0;
+
+    services.forEach(service => {
+      const button = document.createElement("button");
+      button.className = "service";
+      button.innerHTML = `
+        <span>${service.name}</span>
+        <span>$${service.price}</span>
+      `;
+
+      button.addEventListener("click", () => {
+        button.classList.toggle("selected");
+
+        if (button.classList.contains("selected")) {
+          selectedTotal += service.price;
+        } else {
+          selectedTotal -= service.price;
+        }
+
+        totalEl.textContent = `$${selectedTotal}`;
+      });
+
+      servicesContainer.appendChild(button);
+    });
+  </script>
+
+</body>
+</html>
